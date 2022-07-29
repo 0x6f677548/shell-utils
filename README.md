@@ -14,3 +14,10 @@ wireguard-pihole                        54               5 {10.66.66.1}       {f
 Wi-Fi                                    6              30 {1.1.1.1, 1.0.0.1} {}
 Loopback Pseudo-Interface 1              1              75 {}                 {fec0:0:0:ffff::1, fec0:0:0:ffff::2, fec0:0:0:ffff::3}
 ```
+
+### Set-CloudFlareDns
+Sets the client dns of the $interface provided to Cloudflare dns
+
+```
+$ .\Set-CloudFlareDns.ps1 -interface 6
+```
