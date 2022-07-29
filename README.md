@@ -1,5 +1,16 @@
 # shell-utils
 Some useful shell scripts for daily tasks
+## Linux
+### DNS Related
+### dnsflood.sh
+Generates flood requests using dnsperf util (https://github.com/DNS-OARC/dnsperf) . It targets  a destination dns server, with random requests from files in ./dnsflood-rndrecs/ folder. Useful to flood a dns server, testing performance, or mining pi-holes with random data
+
+Usage:
+```
+# 60 minutes, targetting 192.168.1.1
+./dhsflood.sh 60 192.168.1.1
+```
+
 ## PowerShell
 ### DNS Related
 #### Get-DnsOrder
