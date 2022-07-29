@@ -1,6 +1,6 @@
-# ps-utils
-Some useful powershell scripts for daily tasks
-## Script List
+# shell-utils
+Some useful shell scripts for daily tasks
+## PowerShell
 ### DNS Related
 #### Get-DnsOrder
 Lists client device dns configured addresses on connected devices, by interface metric order. 
