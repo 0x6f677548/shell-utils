@@ -6,7 +6,7 @@ Write-Host("Start Directory: '" + $directory + "'")
 
 do {
     $syncing = 0;
-    Get-ChildItem $startdir -file -recurse | 
+    Get-ChildItem $directory -file -recurse | 
     Where-Object Attributes -eq 'Archive' | 
     ForEach-Object {
         Write-Host($_.Name + " : " + $_.Attributes)
