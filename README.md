@@ -67,7 +67,7 @@ Example
 
 # setting DNS to the ipv4 addresses of CloudFlare
 .\Add-DefaultDnsClientNrptRule -nameserver1 '1.1.1.1' -nameserver2 '1.0.0.1'
-
+```
 
 
 ### File related scripts
