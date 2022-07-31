@@ -11,8 +11,8 @@ Usage:
 ./dhsflood.sh 60 192.168.1.1
 ```
 
-## PowerShell
-### DNS Related
+## PowerShell 
+### DNS Related scripts
 #### Get-DnsOrder
 Lists client device dns configured addresses on connected devices, by interface metric order. 
 Example
@@ -35,7 +35,42 @@ Example
 $ .\Set-CloudFlareDns.ps1 -interface 6
 ```
 
-### Files related
+
+#### Set-LocalhostDns
+Sets the client dns of the $interface provided to localhost address. Useful when using dns-proxy.
+It can also be a workaround to prevent dns leakage on windows on multi-homed devices, like when using a DNS split tunnel, although the best approach is to use NRPT tables (refer to https://www.sans.org/white-papers/40165/)  
+
+
+Example
+```
+# .\Set-LocalhostDns.ps1 -interface 6
+```
+
+
+#### Add-DefaultDnsNrptRule
+Adds a NRPT rule with namespace '.' that points to provided $nameserver1 and $nameserver2. Useful to prevent dns leakage on Windows, namely with smart multi-homed name resolution (SMHNR). 
+For detailed effects of SMHNR on privacy, refer to https://www.sans.org/white-papers/40165/
+
+Steps:
+    1) Removes all NRPT rules with . namespace
+    2) Adds a NRPT rule with . namespace pointing to $nameserver1 and $nameserver2
+
+Example
+
+``` 
+# setting DNS to the ipv4 and ipv6 of a split tunnel (like wireguard)
+.\Add-DefaultDnsClientNrptRule -nameserver1 '10.66.66.1' -nameserver2 'fd42:42:42::1'
+
+
+# setting DNS to the ipv4 and ipv6 addresses of CloudFlare
+.\Add-DefaultDnsClientNrptRule -nameserver1 '1.1.1.1' -nameserver2 '2606:4700:4700::1111'
+
+# setting DNS to the ipv4 addresses of CloudFlare
+.\Add-DefaultDnsClientNrptRule -nameserver1 '1.1.1.1' -nameserver2 '1.0.0.1'
+
+
+
+### File related scripts
 #### Move-PartialFolder
 Moves the top $numberOfFolders of child directories of $source to $destination. 
 This is usefull when moving large folders and to be used inside scheduled tasks or onedrive migrations
@@ -44,7 +79,7 @@ Example
 $ .\Move-PartialFolder -source 'c:\temp' -destination 'c:\temp2' -numberOfFolders 2
 ```
 
-### OneDrive related
+### OneDrive related scripts
 #### Get-OneDriveDeprovisioningQueue
 Lists files inside $directory being depromoted to online only inside a loop. Waits $wait millisencods
 
