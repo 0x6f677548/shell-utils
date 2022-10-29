@@ -11,19 +11,6 @@
 # .\Add-DefaultDnsClientNrptRule -nameserver1 '1.1.1.1' -nameserver2 '1.0.0.1'
 param ($nameserver1, $nameserver2)
 
-$DNSAddresses = @(
-  ([IPAddress]$nameserver1).IPAddressToString
-  ([IPAddress]$nameserver2).IPAddressToString
-)
 
-Write-Host ("Rules deleted:")
-Get-DnsClientNRptRule | Where-Object {$_.Namespace -eq '.'}  | Format-Table displayName, nameSpace, nameServers
-
-
-#clears all rules from the NRPT with the same namespace
-Get-DnsClientNRptRule | Where-Object {$_.Namespace -eq '.'} | Remove-DnsClientNrptRule -Force
-
-Add-DnsClientNrptRule -namespace '.' -DisplayName 'default' -NameServers $DNSAddresses
-
-Write-Host ("New rule created:")
-Get-DnsClientNRptRule | Where-Object {$_.Namespace -eq '.'}  | Format-Table displayName, nameSpace, nameServers
+#calls Add-DnsClientNrptRule with . namespace and provided $nameserver1 and $nameserver2
+.\Replace-DnsClientNrptRule -namespace '.' -displayname 'default' -nameserver1 $nameserver1 -nameserver2 $nameserver2
