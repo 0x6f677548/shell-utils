@@ -1,13 +1,15 @@
 #installs a pi-hole on a raspberry pi exposed through pivpn
 #run this script as root
 
+
 #ask the user if they want to configure wifi
 echo "Do you want to configure wifi? (y/n)"
 read wifi
 if [ $wifi = "y" ]
 then
-        #run the setup-wifi script
-        ./setup-wifi.sh
+    #run the setup-wifi script
+    chmod +x ./setup-wifi.sh
+    ./setup-wifi.sh
 fi
 
 
@@ -16,7 +18,9 @@ echo "Do you wish to fix the rtl8188eu driver? (y/n)"
 read fixdriver
 if [ $fixdriver = "y" ]
 then
-        ./rtl8188eu-fix.sh
+    chmod +x ./fix-rtl8188eu.sh
+    #run the fix-rtl8188eu script
+    ./fix-rtl8188eu.sh
 fi
 
 
