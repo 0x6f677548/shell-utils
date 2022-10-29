@@ -25,7 +25,7 @@ fi
 
 
 #ask the user if they wish to reset dhcpcd, wpa_supplicant, and hostapd
-echo "Do you wish to reset dhcpcd, wpa_supplicant, and hostapd? (y/n)"
+echo "Do you wish to reset dhcpcd, wpa_supplicant, and the wifi interface (y/n)"
 read reset
 if [ $reset = "y" ]
 then
