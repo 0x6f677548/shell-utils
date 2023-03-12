@@ -47,7 +47,7 @@ Example
 ```
 
 
-#### Add-DefaultDnsNrptRule
+#### Replace-DefaultDnsNrptRule
 Adds a NRPT rule with namespace '.' that points to provided $nameserver1 and $nameserver2. Useful to prevent dns leakage on Windows, namely with smart multi-homed name resolution (SMHNR). 
 For detailed effects of SMHNR on privacy, refer to https://www.sans.org/white-papers/40165/
 
@@ -59,14 +59,14 @@ Example
 
 ``` 
 # setting DNS to the ipv4 and ipv6 of a split tunnel (like wireguard)
-.\Add-DefaultDnsClientNrptRule -nameserver1 '10.66.66.1' -nameserver2 'fd42:42:42::1'
+.\Replace-DefaultDnsClientNrptRule -nameserver1 '10.66.66.1' -nameserver2 'fd42:42:42::1'
 
 
 # setting DNS to the ipv4 and ipv6 addresses of CloudFlare
-.\Add-DefaultDnsClientNrptRule -nameserver1 '1.1.1.1' -nameserver2 '2606:4700:4700::1111'
+.\Replace-DefaultDnsClientNrptRule -nameserver1 '1.1.1.1' -nameserver2 '2606:4700:4700::1111'
 
 # setting DNS to the ipv4 addresses of CloudFlare
-.\Add-DefaultDnsClientNrptRule -nameserver1 '1.1.1.1' -nameserver2 '1.0.0.1'
+.\Replace-DefaultDnsClientNrptRule -nameserver1 '1.1.1.1' -nameserver2 '1.0.0.1'
 ```
 
 ### Wifi related scripts
