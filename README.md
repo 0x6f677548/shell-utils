@@ -69,6 +69,9 @@ Example
 .\Add-DefaultDnsClientNrptRule -nameserver1 '1.1.1.1' -nameserver2 '1.0.0.1'
 ```
 
+### Wifi related scripts
+### Get-WifiProfiles
+Dumps all wifi profiles, including their passwords
 
 ### File related scripts
 #### Move-PartialFolder
