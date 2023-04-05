@@ -1,5 +1,6 @@
 # shell-utils
-Some useful shell scripts for daily tasks
+Some shell utilities for daily tasks, namely around DNS, Wifi, OneDrive, and file management
+
 ## Linux
 ### DNS Related
 ### dnsflood.sh
