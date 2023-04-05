@@ -13,6 +13,36 @@ Usage:
 ```
 
 ## PowerShell 
+
+### Networking - General
+
+#### Get-ActiveConnections
+Lists Active TCP Connections, including their PIDs and the process name. Useful to identify which process is using a specific port and to where it is connecting to. Tries to identity the owner of the IP address, country, by using ipinfo.io service.
+
+Example
+```
+$ .\Get-ActiveConnections.ps1
+
+Process Name: SearchHost (PID: 10120)
+Connections:
+  0.0.0.0:51143 -> 0.0.0.0:0 (Dest IP: 0.0.0.0)
+    Public IP Info:  ()
+  0.0.0.0:51133 -> 0.0.0.0:0 (Dest IP: 0.0.0.0)
+    Public IP Info:  ()
+  192.168.1.195:51143 -> 23.47.188.105:443 (Dest IP: 23.47.188.105)
+    Public IP Info: Akamai International B.V. (Portugal) (Hostname: a23-47-188-105.deploy.static.akamaitechnologies.com)
+Process Name: SurfaceAppDt (PID: 11468)
+Connections:
+  0.0.0.0:51962 -> 0.0.0.0:0 (Dest IP: 0.0.0.0)
+    Public IP Info:  ()
+Process Name: pwsh (PID: 11504)
+Connections:
+  :::52013 -> :::0 (Dest IP: ::)
+  192.168.1.195:52013 -> 52.236.186.216:443 (Dest IP: 52.236.186.216)
+    Public IP Info: Microsoft Corporation (Netherlands)
+```
+
+
 ### DNS Related scripts
 #### Get-DnsOrder
 Lists client device dns configured addresses on connected devices, by interface metric order. 
