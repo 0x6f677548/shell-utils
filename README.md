@@ -1,5 +1,7 @@
 # shell-utils
 Some shell utilities for daily tasks, namely around DNS, Wifi, OneDrive, and file management
+Writen for Powershell and Bash
+
 
 ## Linux
 ### DNS Related
