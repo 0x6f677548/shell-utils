@@ -36,8 +36,8 @@ foreach ($url in $urls) {
 
 
 # Create the scheduled task to run the two PowerShell scripts on logon
-$action1 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Downloads\Delete-OfficeLogsAndTraces.ps1`" -days 1"
-$action2 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Downloads\Delete-OldFiles.ps1`" -days 7"
+$action1 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Delete-OfficeLogsAndTraces.ps1`" -days 1"
+$action2 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Delete-OldFiles.ps1`" -days 7"
 $action3 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Delete-OldFiles.ps1`" -path `"$env:TEMP\DiagOutputDir`" -days 1"
 $trigger = New-ScheduledTaskTrigger -AtLogOn -User $currentUserName
 $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
