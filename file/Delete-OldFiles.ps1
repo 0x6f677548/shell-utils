@@ -18,6 +18,6 @@ $limit = (Get-Date).AddDays(-$days)
 
 Write-Host "Deleting files older than $days days in $path based on $attribute :"
 
-$filesToDelete = Get-ChildItem -Path $path -Recurse | Where-Object { $_.$attribute -lt $limit }
+$filesToDelete = Get-ChildItem -Path $path -Recurse | Where-Object { $_.$attribute -lt $limit -and !$_.PSIsContainer }
 $filesToDelete | Select-Object -Property FullName, $attribute
 $filesToDelete | Remove-Item -Force
