@@ -6,8 +6,6 @@ param (
 # Author: 0x6d69636b
 # Usage: Delete-OfficeLogsAndTraces.ps1 -days 1
 
-$limit = (Get-Date).AddDays(-$days)
-
 
 # Delete Office logs and traces from %TEMP%\Diagnostics
 $path = "$env:TEMP\Diagnostics"
@@ -17,17 +15,15 @@ $folders = Get-ChildItem "$path" -Directory -Name | Where-Object { $_ -in "OUTLO
 
 foreach ($folder in $folders) {
     $fullPath = Join-Path "$path" $folder
-    Write-Host "Deleting files older than $days days in $fullPath :"
-    Get-ChildItem -Path $fullPath -Recurse | Where-Object { $_.LastAccessTime -lt $limit } | Select-Object -Property FullName, LastAccessTime
-    Get-ChildItem -Path $fullPath -Recurse | Where-Object { $_.LastAccessTime -lt $limit } | Remove-Item -Force
+    #calling the Delete-OldFiles.ps1 script
+    .\Delete-OldFiles.ps1 -path $fullPath -attribute "LastAccessTime" -days $days
 }
 
 $fullPath = "$env:TEMP\Outlook Logging"
 #check if folder exists
 if ((Test-Path $fullPath)) {
     # Delete outlook logs and traces from %TEMP%\Outlook Logging
-    Write-Host "Deleting files older than $days days in $fullPath :"
-    Get-ChildItem -Path $fullPath -Recurse | Where-Object { $_.LastAccessTime -lt $limit } | Select-Object -Property FullName, LastAccessTime
-    Get-ChildItem -Path $fullPath -Recurse | Where-Object { $_.LastAccessTime -lt $limit } | Remove-Item -Force
+    #calling the Delete-OldFiles.ps1 script
+    .\Delete-OldFiles.ps1 -path $fullPath -attribute "LastAccessTime" -days $days
 }
 
