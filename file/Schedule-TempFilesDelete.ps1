@@ -9,12 +9,12 @@ $downloadPath = "$env:USERPROFILE"
 $currentUserName = "$env:COMPUTERNAME\$env:USERNAME"
 
 # Download the two PowerShell scripts from the GitHub repository
-Invoke-WebRequest "$githubRepoUrl/Delete-OfficeLogsAndTraces.ps1" -OutFile "$downloadPath\Delete-OfficeLogsAndTraces.ps1"
-Invoke-WebRequest "$githubRepoUrl/Delete-OldTempFiles.ps1" -OutFile "$downloadPath\Delete-OldTempFiles.ps1"
+Invoke-WebRequest "$githubRepoUrl/Delete-OfficeLogsAndTraces.ps1" -OutFile "$downloadPath\Downloads\Delete-OfficeLogsAndTraces.ps1"
+Invoke-WebRequest "$githubRepoUrl/Delete-OldTempFiles.ps1" -OutFile "$downloadPath\Downloads\Delete-OldTempFiles.ps1"
 
 # Create the scheduled task to run the two PowerShell scripts on logon
-$action1 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Delete-OfficeLogsAndTraces.ps1 -days 1`""
-$action2 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Delete-OldTempFiles.ps1 -days 7`""
+$action1 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Downloads\Delete-OfficeLogsAndTraces.ps1`" -days 1"
+$action2 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Downloads\Delete-OldTempFiles.ps1`" -days 7"
 $trigger = New-ScheduledTaskTrigger -AtLogOn -User $currentUserName
 $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
 Register-ScheduledTask -TaskName $taskName -Action $action1, $action2 -Trigger $trigger -Settings $settings
