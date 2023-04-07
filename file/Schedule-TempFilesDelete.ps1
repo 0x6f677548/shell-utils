@@ -15,10 +15,20 @@ $urls = @("$githubRepoUrl/Delete-OfficeLogsAndTraces.ps1",
 foreach ($url in $urls) {
     $fileName = Split-Path -Leaf $url
     $filePath = Join-Path $downloadPath $fileName
-    $result = Invoke-WebRequest -Uri $url -OutFile $filePath
 
-    if ($result.StatusCode -ne 200) {
-        Write-Host "Error downloading $fileName ... exiting"
+    try
+    {
+        $result = Invoke-WebRequest -Uri $url -OutFile $filePath
+        $statuscode = $result.StatusCode
+        
+    } catch {
+        $statuscode = $_.Exception.Response.StatusCode.value__
+    }
+
+    #we'll have a status code only if we get an error
+
+    if ($null -ne $statuscode -and $statuscode -ne 200) {
+        Write-Host "Error $statuscode downloading $fileName ... exiting"
         exit
     }
 
