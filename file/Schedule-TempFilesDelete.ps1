@@ -36,9 +36,12 @@ foreach ($url in $urls) {
 
 
 # Create the scheduled task to run the two PowerShell scripts on logon
-$action1 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Delete-OfficeLogsAndTraces.ps1`" -days 1"
-$action2 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Delete-OldFiles.ps1`" -days 7"
-$action3 = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$downloadPath\Delete-OldFiles.ps1`" -path `"$env:TEMP\DiagOutputDir`" -days 1"
+$action1 = New-ScheduledTaskAction -Execute "powershell.exe" `
+    -Argument "-NoProfile -ExecutionPolicy Bypass -Command `"&'$downloadPath\Delete-OfficeLogsAndTraces.ps1' -days 1 | Out-File -FilePath '$env:USERPROFILE\deletetemp-log(1).log'`""
+$action2 = New-ScheduledTaskAction -Execute "powershell.exe" `
+    -Argument "-NoProfile -ExecutionPolicy Bypass -Command `"&'$downloadPath\Delete-OldFiles.ps1' -days 7 | Out-File -FilePath '$env:USERPROFILE\deletetemp-log(2).log'`""
+$action3 = New-ScheduledTaskAction -Execute "powershell.exe" `
+    -Argument "-NoProfile -ExecutionPolicy Bypass -Command `"&'$downloadPath\Delete-OldFiles.ps1' -path '$env:TEMP\DiagOutputDir' -days 1 | Out-File -FilePath '$env:USERPROFILE\deletetemp-log(3).log'`""
 $trigger = New-ScheduledTaskTrigger -AtLogOn -User $currentUserName
 $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
 Register-ScheduledTask -TaskName $taskName -Action $action1, $action2, $action3 -Trigger $trigger -Settings $settings
