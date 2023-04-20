@@ -42,8 +42,8 @@ def main(dns_servers, domains, num_tests):
 if __name__ == '__main__':
   
     # Define the default values for the command-line arguments
-    default_dns_servers = ['8.8.8.8', '1.1.1.1', '192.168.1.30', '192.168.1.1', '192.168.2.1', '']
-    default_domains = ['example.com', 'google.com', 'facebook.com', 'api.intellireading.com', 'gcp01.cloud.redlayer.eu', 'nest01.redlayer.eu']
+    default_dns_servers = ['8.8.8.8', '1.1.1.1', '192.168.1.1', '']
+    default_domains = ['example.com', 'google.com', 'facebook.com']
     default_num_tests = 5
 
     # Define the command-line arguments and their default values
