@@ -1,5 +1,5 @@
-#Add-DnsNrptRule
-#Adds a NRPT rule with namespace $namespace that points to provided $nameserver1 and $nameserver2
+#Replace-DnsClientNrptRule
+#Replaces (if any) NRPT rule with namespace $namespace that points to provided $nameserver1 and $nameserver2
 #Steps:
 # 1) Removes all NRPT rules with $namespace namespace
 # 2) Adds a NRPT rule with $namespace pointing to $nameserver1 and $nameserver2 (if provided)
