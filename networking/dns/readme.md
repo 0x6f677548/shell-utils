@@ -7,17 +7,6 @@ Windows is particularly tricky on the way it manages DNS on smart multi homed de
 Smart multi-homed name resolution (SMHNR) is particularly worrying for privacy, as described in https://www.sans.org/white-papers/40165/ . As an example, even when using pi-hole, it is not always garanteed that the DNS queries will go through it, as Windows will try to use the fastest DNS server, and will use the fastest one, even if it is not the one configured on the interface. Some scripts here try to help with that, namely the ones to create NRPT rules. 
 
 
-## Linux bash scripts
-
-### [dnsflood.sh](dnsflood.sh)
-Generates flood requests using dnsperf util (https://github.com/DNS-OARC/dnsperf) . It targets  a destination dns server, with random requests from files in ./dnsflood-rndrecs/ folder. Useful to flood a dns server, testing performance, or mining pi-holes with random data
-
-Usage:
-```
-# 60 minutes, targetting 192.168.1.1
-./dhsflood.sh 60 192.168.1.1
-```
-
 ## PowerShell
 ### [Get-DnsOrder](Get-DnsOrder.ps1)
 Lists client device dns configured addresses on connected devices, by interface metric order. 
@@ -74,3 +63,32 @@ Example
 # setting DNS to the ipv4 addresses of CloudFlare
 .\Replace-DefaultDnsClientNrptRule -nameserver1 '1.1.1.1' -nameserver2 '1.0.0.1'
 ```
+
+
+### [Replace-DnsClientNrptRule](Replace-DnsClientNrptRule.ps1)
+Replaces (if any) NRPT rule with namespace $namespace that points to provided $nameserver1 and $nameserver2
+#Steps:
+    1) Removes all NRPT rules with $namespace namespace
+    2) Adds a NRPT rule with $namespace pointing to $nameserver1 and $nameserver2 (if provided)
+
+Examples 
+```
+    .\Replace-DnsClientNrptRule -namespace '.' -displayname 'default' -nameserver1 '10.66.66.1' -nameserver2 'fd42:42:42::1'
+
+    .\Replace-DnsClientNrptRule  -namespace '.' -displayname 'default' -nameserver1 '1.1.1.1' -nameserver2 '2606:4700:4700::1111'
+    
+    .\Replace-DnsClientNrptRule  -namespace '.' -displayname 'default' -nameserver1 '1.1.1.1' 
+
+```
+
+## Linux bash scripts
+
+### [dnsflood.sh](dnsflood.sh)
+Generates flood requests using dnsperf util (https://github.com/DNS-OARC/dnsperf) . It targets  a destination dns server, with random requests from files in ./dnsflood-rndrecs/ folder. Useful to flood a dns server, testing performance, or mining pi-holes with random data
+
+Usage:
+```
+# 60 minutes, targetting 192.168.1.1
+./dhsflood.sh 60 192.168.1.1
+```
+
