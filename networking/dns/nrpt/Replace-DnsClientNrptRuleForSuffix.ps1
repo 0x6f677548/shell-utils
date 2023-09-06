@@ -6,6 +6,9 @@
 # As an example, if you have a default rule that points to 1.1.1.1 and you have a vpn that is for a specific DNS suffix
 # you may want to add a new rule that points to the DNS servers of the interface that has the DNS suffix
 
+# Additionally, a namespace can be provided as an optional parameter, if the namespace is not provided, the namespace will be the DNS suffix
+# This is useful if you want to replace a rule that has a namespace that is different than the DNS suffix
+
 # Usage example:
 # .\Replace-DnsClientNrptRuleForSuffix.ps1 -dnsSuffix 'example.local'
 # this example will look for a network interface that has the DNS suffix 'example.local' and will 
@@ -14,7 +17,9 @@
 
 param (
     [parameter(Mandatory=$true)]
-    [string]$dnsSuffix
+    [string]$dnsSuffix,
+    [parameter(Mandatory=$false)]
+    [string]$namespace
 )
 
 
@@ -53,7 +58,12 @@ if ($null -eq $dnsServer1) {
     $dnsServer1 = ''
 }
 
-$namespace = '.' + $dnsSuffix
+if (![string]::IsNullOrEmpty($namespace)) {
+    $suffixNamespace = $namespace
+}
+else {
+    $suffixNamespace = '.' + $dnsSuffix
+}
 
-#calls Add-DnsClientNrptRule with . namespace and provided $nameserver1 and $nameserver2
-.\Replace-DnsClientNrptRule -namespace $namespace -displayname $dnsSuffix -nameserver1 $dnsServer1 -nameserver2 $dnsServer2
+# Call Replace-DnsClientNrptRule 
+.\Replace-DnsClientNrptRule -namespace $suffixNamespace -displayname $dnsSuffix -nameserver1 $dnsServer1 -nameserver2 $dnsServer2
