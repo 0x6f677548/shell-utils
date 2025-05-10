@@ -4,7 +4,7 @@
 # author: 0x6d69636b
 
 $taskName = "Delete Temp files older than 7 days, DiagOutputDir older than 1 day, and Office logs and traces older than 1 day"
-$githubRepoUrl = "https://raw.githubusercontent.com/0x6f677548/shell-utils/main/file"
+$githubRepoUrl = "https://go.hugobatista.com/ghraw/shell-utils/main/file"
 $downloadPath = "$env:USERPROFILE"
 $currentUserName = "$env:COMPUTERNAME\$env:USERNAME"
 
